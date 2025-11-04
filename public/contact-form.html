@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form người dùng - Tworky Contacts Lite</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <div class="logo">Tworky Contacts Lite</div>
+      <nav>
+        <ul>
+          <li><a href="/">Trang chủ</a></li>
+          <li><a href="/contacts.html">Danh bạ</a></li>
+          <li><a href="/organizations.html">Phòng/ban</a></li>
+          <li><button class="logout-btn" id="logoutBtn">Đăng xuất</button></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="form-container">
+      <h1 id="formTitle">Thêm người dùng mới</h1>
+      
+      <form id="userForm">
+        <div class="form-group">
+          <label for="username">Tên đăng nhập *</label>
+          <input type="text" id="username" name="username" required>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Mật khẩu *</label>
+          <input type="password" id="password" name="password" required>
+        </div>
+
+        <div class="form-group">
+          <label for="fullname">Họ và tên</label>
+          <input type="text" id="fullname" name="fullname">
+        </div>
+
+        <div class="form-group">
+          <label for="description">Mô tả</label>
+          <textarea id="description" name="description"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="organization_id">Phòng/ban</label>
+          <select id="organization_id" name="organization_id">
+            <option value="">-- Chọn phòng/ban --</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="role">Quyền *</label>
+          <select id="role" name="role" required>
+            <option value="user">User</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Lưu</button>
+          <a href="/contacts.html" class="back-btn">Hủy</a>
+        </div>
+
+        <div id="errorMessage" class="error-message"></div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/auth.js"></script>
+  <script src="/js/contact-form.js"></script>
+</body>
+</html>

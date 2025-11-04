@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chi tiết người dùng - Tworky Contacts Lite</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <div class="logo">Tworky Contacts Lite</div>
+      <nav>
+        <ul>
+          <li><a href="/">Trang chủ</a></li>
+          <li><a href="/contacts.html">Danh bạ</a></li>
+          <li><a href="/organizations.html">Phòng/ban</a></li>
+          <li><button class="logout-btn" id="logoutBtn">Đăng xuất</button></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="detail-container">
+      <h1>Chi tiết người dùng</h1>
+      
+      <div id="userDetail">
+        <div class="loading">Đang tải dữ liệu...</div>
+      </div>
+
+      <a href="/contacts.html" class="back-btn">Quay lại</a>
+    </div>
+  </div>
+
+  <script src="/js/auth.js"></script>
+  <script src="/js/contact-detail.js"></script>
+</body>
+</html>

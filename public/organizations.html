@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phòng/ban - Tworky Contacts Lite</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <div class="logo">Tworky Contacts Lite</div>
+      <nav>
+        <ul>
+          <li><a href="/">Trang chủ</a></li>
+          <li><a href="/contacts.html">Danh bạ</a></li>
+          <li><a href="/organizations.html">Phòng/ban</a></li>
+          <li><button class="logout-btn" id="logoutBtn">Đăng xuất</button></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="page-header">
+      <h1>Danh sách Phòng/ban</h1>
+    </div>
+
+    <div class="table-container">
+      <table>
+        <thead>
+          <tr>
+            <th>Tên phòng/ban</th>
+          </tr>
+        </thead>
+        <tbody id="organizationsTable">
+          <tr>
+            <td class="loading">Đang tải dữ liệu...</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <script src="/js/auth.js"></script>
+  <script src="/js/organizations.js"></script>
+</body>
+</html>

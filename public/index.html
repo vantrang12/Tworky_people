@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Trang chủ - Tworky Contacts Lite</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <div class="header-content">
+      <div class="logo">Tworky Contacts Lite</div>
+      <nav>
+        <ul>
+          <li><a href="/">Trang chủ</a></li>
+          <li><a href="/contacts.html">Danh bạ</a></li>
+          <li><a href="/organizations.html">Phòng/ban</a></li>
+          <li><button class="logout-btn" id="logoutBtn">Đăng xuất</button></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="welcome-section">
+      <h1>Chào mừng, <span id="userName"></span>!</h1>
+      <p>Hệ thống quản lý danh bạ Tworky Contacts Lite</p>
+    </div>
+  </div>
+
+  <script src="/js/auth.js"></script>
+  <script>
+    async function loadUserInfo() {
+      try {
+        const response = await fetch('/api/me');
+        if (!response.ok) {
+          window.location.href = '/login.html';
+          return;
+        }
+        const user = await response.json();
+        document.getElementById('userName').textContent = user.fullname || user.username;
+      } catch (error) {
+        window.location.href = '/login.html';
+      }
+    }
+
+    loadUserInfo();
+  </script>
+</body>
+</html>

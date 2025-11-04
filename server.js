@@ -16,18 +16,21 @@ const supabase = createClient(
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('public'));
 
-// Session configuration
+// Session configuration - Đặt trước static files
 app.use(session({
-  secret: process.env.SESSION_SECRET || 'tworky-secret-key',
+  secret: process.env.SESSION_SECRET || 'tworky-secret-key-change-this-in-production',
   resave: false,
   saveUninitialized: false,
   cookie: { 
-    secure: process.env.NODE_ENV === 'production',
-    maxAge: 24 * 60 * 60 * 1000 // 24 hours
+    secure: false, // Đặt false để hoạt động trên cả HTTP và HTTPS
+    httpOnly: true,
+    maxAge: 24 * 60 * 60 * 1000, // 24 hours
+    sameSite: 'lax'
   }
 }));
+
+app.use(express.static('public'));
 
 // Middleware kiểm tra đăng nhập
 const requireAuth = (req, res, next) => {
@@ -56,16 +59,29 @@ app.post('/api/login', async (req, res) => {
     }
 
     req.session.user = data;
-    res.json({ success: true, user: data });
+    
+    // Lưu session trước khi trả về response
+    req.session.save((err) => {
+      if (err) {
+        console.error('Session save error:', err);
+        return res.status(500).json({ error: 'Lỗi lưu phiên đăng nhập' });
+      }
+      res.json({ success: true, user: data });
+    });
   } catch (err) {
+    console.error('Login error:', err);
     res.status(500).json({ error: 'Lỗi server' });
   }
 });
 
 // Logout
 app.post('/api/logout', (req, res) => {
-  req.session.destroy();
-  res.json({ success: true });
+  req.session.destroy((err) => {
+    if (err) {
+      console.error('Logout error:', err);
+    }
+    res.json({ success: true });
+  });
 });
 
 // Get current user
@@ -96,6 +112,7 @@ app.get('/api/users', requireAuth, async (req, res) => {
 
     res.json(data);
   } catch (err) {
+    console.error('Get users error:', err);
     res.status(500).json({ error: 'Lỗi khi lấy danh sách người dùng' });
   }
 });
@@ -124,6 +141,7 @@ app.get('/api/users/:id', requireAuth, async (req, res) => {
 
     res.json(data);
   } catch (err) {
+    console.error('Get user error:', err);
     res.status(500).json({ error: 'Lỗi khi lấy thông tin người dùng' });
   }
 });
@@ -155,6 +173,7 @@ app.post('/api/users', requireAuth, async (req, res) => {
 
     res.json({ success: true, data });
   } catch (err) {
+    console.error('Create user error:', err);
     res.status(500).json({ error: 'Lỗi khi tạo người dùng mới' });
   }
 });
@@ -187,6 +206,7 @@ app.put('/api/users/:id', requireAuth, async (req, res) => {
 
     res.json({ success: true, data });
   } catch (err) {
+    console.error('Update user error:', err);
     res.status(500).json({ error: 'Lỗi khi cập nhật người dùng' });
   }
 });
@@ -207,6 +227,7 @@ app.delete('/api/users/:id', requireAuth, async (req, res) => {
 
     res.json({ success: true });
   } catch (err) {
+    console.error('Delete user error:', err);
     res.status(500).json({ error: 'Lỗi khi xóa người dùng' });
   }
 });
@@ -223,6 +244,7 @@ app.get('/api/organizations', requireAuth, async (req, res) => {
 
     res.json(data);
   } catch (err) {
+    console.error('Get organizations error:', err);
     res.status(500).json({ error: 'Lỗi khi lấy danh sách phòng/ban' });
   }
 });
